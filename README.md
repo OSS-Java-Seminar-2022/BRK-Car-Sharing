@@ -80,6 +80,6 @@ TBD
 ### Authors
 Bruno Bule [@bb00le](https://www.github.com/bb00le)
 
-Roko Đugum [@reactst](https://www.github.com/bb00le)
+Roko Đugum [@reactst](https://www.github.com/reactst)
 
 Karlo Rešetar [@karloresetar](https://github.com/karloresetar)
