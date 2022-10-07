@@ -57,8 +57,7 @@ This project demonstrates a simple car sharing application.
 
 ## Database model
 ----------------
-
-TBD
+![Database model](https://user-images.githubusercontent.com/48185940/194614882-2af1f0c0-c6af-4178-96d6-6aa4aaf77c0c.png)
 
 ## Tech stack
 -------------
