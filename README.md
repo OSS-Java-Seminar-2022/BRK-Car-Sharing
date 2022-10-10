@@ -2,7 +2,7 @@
 
 This project demonstrates a simple car sharing web application.
 
-<img width="1018" alt="image" src="https://user-images.githubusercontent.com/66143573/194908816-38f346fa-e61b-43a0-a8f9-8c3d650cb5d1.png">
+<img width="1005" alt="image" src="https://user-images.githubusercontent.com/66143573/194909254-e7dfcbc3-6f2e-4005-bd94-1fbb23877168.png">
 
 
 ## Table of contents
