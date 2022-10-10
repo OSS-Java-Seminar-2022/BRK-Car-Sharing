@@ -1,6 +1,6 @@
 # BRK-Car-Sharing
 
-This project demonstrates a simple car sharing application.
+This project demonstrates a simple car sharing web application.
 
 ## Table of contents
 -------------
