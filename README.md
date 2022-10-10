@@ -37,7 +37,9 @@ This project demonstrates a simple car sharing web application.
     <li>
         Admin panel
         <ul>
-            <li>Manage users and vehicles</li>
+            <li>Manage users</li>
+            <li>Manage vehicle availability (available, in service, in cleaning, etc.)</li>
+            <li>Book car cleaning</li>
             <li>Reply to support requests</li>
         </ul>
     </li>
