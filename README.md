@@ -62,7 +62,9 @@ This project demonstrates a simple car sharing web application.
 
 ## Database model
 ----------------
-![Database model](https://user-images.githubusercontent.com/48185940/194614882-2af1f0c0-c6af-4178-96d6-6aa4aaf77c0c.png)
+![Database model](https://user-images.githubusercontent.com/66143573/196203348-56621f9f-ae6e-4445-88d3-98d83fb44332.jpg)
+
+
 
 ## Tech stack
 -------------
