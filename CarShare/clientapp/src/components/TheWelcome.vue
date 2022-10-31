@@ -30,7 +30,7 @@ import SupportIcon from './icons/IconSupport.vue'
     recommended IDE setup is
     <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> +
     <a href="https://github.com/johnsoncodehk/volar" target="_blank" rel="noopener">Volar</a>. If
-    you need to test your components and web pages, check out
+    you need to test your components and web Pages, check out
     <a href="https://www.cypress.io/" target="_blank" rel="noopener">Cypress</a> and
     <a href="https://on.cypress.io/component" target="_blank">Cypress Component Testing</a>.
 
