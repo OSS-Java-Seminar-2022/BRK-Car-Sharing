@@ -1,6 +1,7 @@
 package com.brk.CarShare;
 
 import com.brk.CarShare.Repositories.IRoleRepository;
+import com.brk.CarShare.Repositories.IVehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +14,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class CarShareApplication implements CommandLineRunner {
 	@Autowired
 	IRoleRepository IRoleRepository;
+	@Autowired
+	IVehicleRepository IVehicleRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(CarShareApplication.class, args);
 	}
