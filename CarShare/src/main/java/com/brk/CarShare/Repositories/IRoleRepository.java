@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
-public interface IRoleRepository extends MongoRepository<Role, Long> {
+public interface IRoleRepository extends MongoRepository<Role, String> {
 }

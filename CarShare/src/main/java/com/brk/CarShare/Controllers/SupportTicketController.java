@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/supportTicket")
+@RequestMapping("/api/supportTicket")
 @RequiredArgsConstructor
 public class SupportTicketController {
 
     @Autowired
     private final SupportTicketService supportTicketService;
-    @PostMapping("/addSupportTicket")
+    @PostMapping("/add")
     public ResponseEntity addSupportTicket(@RequestBody SupportTicket supportTicket) {
         supportTicketService.addSupportTicket(supportTicket);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok("Succesfully added support ticket!");
     }
 
 
-    @GetMapping("/getAllSupportTickets")
+    @GetMapping("/getAll")
     public ResponseEntity<List<SupportTicket>> getAllSupportTickets() {
         return ResponseEntity.ok(supportTicketService.getAllSupportTickets());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getSupportTicketById(@PathVariable Long id) {
+    public ResponseEntity getSupportTicketById(@PathVariable String id) {
         return ResponseEntity.ok(supportTicketService.getSupportTicketById(id));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update")
     public ResponseEntity updateSupportTicket(@RequestBody SupportTicket supportTicket) {
         supportTicketService.updateSupportTicket(supportTicket);
         return ResponseEntity.status(HttpStatus.OK).build();

@@ -22,9 +22,9 @@ public class SupportTicketService {
         return supportTicketRepository.findAll();
     }
 
-    public SupportTicket getSupportTicketById(Long id) {
+    public SupportTicket getSupportTicketById(String id) {
         return supportTicketRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Support ticket by ID - %d", id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Support ticket by ID - " + id)));
     }
     public void updateSupportTicket(SupportTicket supportTicket) {
         supportTicketRepository.save(supportTicket);

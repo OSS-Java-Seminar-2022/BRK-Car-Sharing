@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vehicle")
+@RequestMapping("/api/vehicle")
 @RequiredArgsConstructor
 public class VehicleController {
 
     @Autowired
     private final VehicleService vehicleService;
-    @PostMapping("/addVehicle")
+    @PostMapping("/add")
     public ResponseEntity addVehicle(@RequestBody Vehicle vehicle) {
         vehicleService.addVehicle(vehicle);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok("Successfully added vehicle!");
     }
 
 
-    @GetMapping("/getAllVehicles")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
         return ResponseEntity.ok(vehicleService.getAllVehicles());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getVehicleById(@PathVariable Long id) {
+    public ResponseEntity getVehicleById(@PathVariable String id) {
         return ResponseEntity.ok(vehicleService.getVehicleById(id));
     }
 
@@ -41,7 +41,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteVehicle(@PathVariable Long id) {
+    public ResponseEntity deleteVehicle(@PathVariable String id) {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
     }

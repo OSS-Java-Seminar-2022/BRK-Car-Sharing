@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class SupportTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String title;
     private String description;
     private Boolean isClosed;

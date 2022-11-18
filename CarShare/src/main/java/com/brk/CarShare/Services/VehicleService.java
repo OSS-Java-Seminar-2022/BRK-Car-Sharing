@@ -22,7 +22,7 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
-    public Vehicle getVehicleById(Long id) {
+    public Vehicle getVehicleById(String id) {
         return vehicleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Vehicle by ID - %d", id)));
     }
@@ -35,7 +35,7 @@ public class VehicleService {
         vehicleRepository.save(vehicle);
     }
 
-    public void deleteVehicle(Long id) {
+    public void deleteVehicle(String id) {
         vehicleRepository.deleteById(id);
     }
 }

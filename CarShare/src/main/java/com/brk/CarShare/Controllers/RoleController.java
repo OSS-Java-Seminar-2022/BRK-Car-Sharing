@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/api/role")
 @RequiredArgsConstructor
 public class RoleController {
 
     @Autowired
     private final RoleService roleService;
-    @PostMapping("/addRole")
+    @PostMapping("/add")
     public ResponseEntity addRole(@RequestBody Role role) {
         roleService.addRole(role);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
-    @GetMapping("/getAllRoles")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Role>> getAllRoles() {
         return ResponseEntity.ok(roleService.getAllRoles());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getRoleById(@PathVariable Long id) {
+    public ResponseEntity getRoleById(@PathVariable String id) {
         return ResponseEntity.ok(roleService.getRoleById(id));
     }
 
@@ -41,7 +41,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteRole(@PathVariable Long id) {
+    public ResponseEntity deleteRole(@PathVariable String id) {
         roleService.deleteRole(id);
         return ResponseEntity.noContent().build();
     }

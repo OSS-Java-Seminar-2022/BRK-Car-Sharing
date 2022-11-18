@@ -22,7 +22,7 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public Role getRoleById(Long id) {
+    public Role getRoleById(String id) {
         return roleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Role by ID - %d", id)));
     }
@@ -34,7 +34,7 @@ public class RoleService {
         roleRepository.save(role);
     }
 
-    public void deleteRole(Long id) {
+    public void deleteRole(String id) {
         roleRepository.deleteById(id);
     }
 }
