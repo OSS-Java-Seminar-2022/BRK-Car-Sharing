@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Document(collection = "role")
+@Document(collection = "supportTicket")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
