@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/vehicle")
 @RequiredArgsConstructor
 public class VehicleController {
 
@@ -29,18 +29,18 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.getAllVehicles());
     }
 
-    @GetMapping("vehicle/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity getVehicleById(@PathVariable Long id) {
         return ResponseEntity.ok(vehicleService.getVehicleById(id));
     }
 
-    @PatchMapping("/vehicle/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity updateVehicle(@RequestBody Vehicle vehicle) {
         vehicleService.updateVehicle(vehicle);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping("vehicle/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteVehicle(@PathVariable Long id) {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();

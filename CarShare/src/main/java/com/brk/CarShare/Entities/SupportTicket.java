@@ -9,22 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Document(collection = "vehicle")
+@Document(collection = "role")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vehicle {
-
+public class SupportTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String make;
-    private String model;
-    private String fuelType;
-    private String modelYear;
-    private String registration;
-    private String vin;
+    private String title;
+    private String description;
+    private Boolean isClosed;
     private String status;
-    private String subscriptionTier;
-    private String location;
 }
