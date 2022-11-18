@@ -40,10 +40,4 @@ public class SupportTicketController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteSupportTicket(@PathVariable Long id) {
-        supportTicketService.deleteSupportTicket(id);
-        return ResponseEntity.noContent().build();
-    }
-
 }

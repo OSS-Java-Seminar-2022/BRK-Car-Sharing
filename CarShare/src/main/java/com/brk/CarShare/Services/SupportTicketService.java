@@ -29,8 +29,4 @@ public class SupportTicketService {
     public void updateSupportTicket(SupportTicket supportTicket) {
         supportTicketRepository.save(supportTicket);
     }
-
-    public void deleteSupportTicket(Long id) {
-        supportTicketRepository.deleteById(id);
-    }
 }
