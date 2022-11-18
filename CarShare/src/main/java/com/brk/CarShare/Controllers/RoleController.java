@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/role")
 @RequiredArgsConstructor
 public class RoleController {
 
@@ -29,18 +29,18 @@ public class RoleController {
         return ResponseEntity.ok(roleService.getAllRoles());
     }
 
-    @GetMapping("role/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity getRoleById(@PathVariable Long id) {
         return ResponseEntity.ok(roleService.getRoleById(id));
     }
 
-    @PatchMapping("/role/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity updateRole(@RequestBody Role role) {
         roleService.updateRole(role);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @DeleteMapping("role/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteRole(@PathVariable Long id) {
         roleService.deleteRole(id);
         return ResponseEntity.noContent().build();
