@@ -1,6 +1,6 @@
 <template>
   <div class="text-center d-flex align-center">
-    <v-dialog v-model="currentItemSet" class="w-50">
+    <v-dialog v-model="currentItemSet" class="w-25">
       <v-card >
         <v-card-text>
           <v-col
@@ -18,7 +18,7 @@
             <v-textarea
               v-else
               variant="outlined"
-              :model-value="String(value)"
+              :model-value="value"
               :label="name"
               readonly
             />
@@ -41,6 +41,9 @@
 import { useItemStore } from "@/stores/itemStore.js";
 import { mapStores } from "pinia";
 export default {
+  updated() {
+    this.currentItemStore.setLoading(false);
+  },
   computed: {
     ...mapStores(useItemStore),
     currentItemSet: function () {

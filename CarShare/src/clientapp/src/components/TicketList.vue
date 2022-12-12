@@ -13,7 +13,7 @@
         <tr v-for="item in ticketList" :key="item.name">
           <td>
             <v-progress-circular
-              v-if="loading"
+              v-if="currentItemStore.loading"
               indeterminate
             ></v-progress-circular>
             <v-icon
@@ -28,35 +28,34 @@
         </tr>
       </tbody>
     </v-table>
-    <ItemDetails/>
   </v-card>
 </template>
 <script>
 import {useItemStore} from "@/stores/itemStore.js";
 import {mapStores} from "pinia";
-import ItemDetails from "@/components/ItemDetails.vue";
 
 export default {
   name: "TicketList",
   data() {
     return {
       ticketList: [],
+      loading:false,
     };
   },
-  components:{
-    ItemDetails
-  },
   async created() {
+    this.loading = true
     const { data } = await this.$http.get(
       "http://localhost:8989/api/supportTicket/getAll"
     );
     this.ticketList = data;
+    this.loading = false
   },
   computed:{
     ...mapStores(useItemStore)
   },
   methods:{
     openTicketDetails(item) {
+      this.currentItemStore.setLoading(true);
       this.currentItemStore.setCurrentItem(item)
     },
   }
