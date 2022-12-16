@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity getUserById(@PathVariable String id){
         return ResponseEntity.ok(userService.getUserById(id));
     }
-    @PatchMapping("/{userId}")
+    @PostMapping("/{userId}")
     public ResponseEntity updateUser (@RequestBody User user){
         userService.updateUser(user);
         return ResponseEntity.status(HttpStatus.OK).build();
