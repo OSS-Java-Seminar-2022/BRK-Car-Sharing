@@ -1,12 +1,11 @@
 package com.brk.CarShare.Services;
 
-import com.brk.CarShare.Entities.SupportTicket;
 import com.brk.CarShare.Repositories.ITripRepository;
+import com.brk.CarShare.Entities.Trip;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.brk.CarShare.Entities.Trip;
-import com.brk.CarShare.Repositories.ITripRepository;
+
 
 import java.util.List;
 
@@ -19,4 +18,8 @@ public class TripService {
     public List<Trip> getAllTrips() {
         return tripRepository.findAll();
     }
+    public Trip getTripById(String id){
+        return tripRepository.findById(id).orElseThrow(() -> new RuntimeException("Cannot find trip by ID"));
+    }
+    public void updateTrip(Trip trip) {tripRepository.save(trip);}
 }
