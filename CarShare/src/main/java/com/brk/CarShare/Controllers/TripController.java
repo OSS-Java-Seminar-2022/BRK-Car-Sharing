@@ -1,6 +1,5 @@
 package com.brk.CarShare.Controllers;
 
-import com.brk.CarShare.Entities.SupportTicket;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,5 +29,9 @@ public class TripController {
     public ResponseEntity updateTrip(@RequestBody Trip trip){
         tripService.updateTrip(trip);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    @GetMapping("/{dateFrom}/{dateTo}")
+    public ResponseEntity<List<Trip>> getTripsByStartTime(@PathVariable String dateFrom, String dateTo){
+        return ResponseEntity.ok(tripService.getTripsByStartTime(dateFrom, dateTo));
     }
 }

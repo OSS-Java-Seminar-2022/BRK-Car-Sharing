@@ -45,5 +45,8 @@ public class VehicleController {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("/{latitude}/{longitude}")
+    public ResponseEntity<List<Vehicle>> getAvailableVehicles(@PathVariable String latitude, String longitude){
+        return ResponseEntity.ok(vehicleService.getAvailableVehicles(latitude, longitude));
+    }
 }

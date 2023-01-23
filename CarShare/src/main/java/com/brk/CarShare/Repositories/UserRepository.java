@@ -1,9 +1,9 @@
 package com.brk.CarShare.Repositories;
 
-import java.util.Optional;
-
 import com.brk.CarShare.Entities.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
 
 
 public interface UserRepository extends MongoRepository<User, String> {
@@ -12,4 +12,5 @@ public interface UserRepository extends MongoRepository<User, String> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
 }

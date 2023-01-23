@@ -15,11 +15,12 @@ import java.util.List;
 public class TripService {
     private final ITripRepository tripRepository;
     public void addTrip(Trip trip){tripRepository.insert(trip);}
-    public List<Trip> getAllTrips() {
-        return tripRepository.findAll();
-    }
+    public List<Trip> getAllTrips() {return tripRepository.findAll();}
     public Trip getTripById(String id){
         return tripRepository.findById(id).orElseThrow(() -> new RuntimeException("Cannot find trip by ID"));
     }
     public void updateTrip(Trip trip) {tripRepository.save(trip);}
+    public List<Trip> getTripsByStartTime(String startTime, String endTime){
+        return tripRepository.getTripsByStartTime(startTime,endTime);
+    }
 }

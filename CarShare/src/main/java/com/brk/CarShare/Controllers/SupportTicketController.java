@@ -39,5 +39,12 @@ public class SupportTicketController {
         supportTicketService.updateSupportTicket(supportTicket);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
+    @GetMapping("/{description}")
+    ResponseEntity<List<SupportTicket>> findSupportTicketByDescriptionContains(@PathVariable String description){
+        return ResponseEntity.ok(supportTicketService.findSupportTicketByDescriptionContains(description));
+    }
+    @GetMapping("/{description}/{dateFrom}/{dateTo}")
+    ResponseEntity<List<SupportTicket>> findSupportTicketByDescriptionContains(@PathVariable String description, String dateFrom, String dateTo){
+        return ResponseEntity.ok(supportTicketService.findSupportTicketByDescriptionContains(description, dateFrom, dateTo));
+    }
 }

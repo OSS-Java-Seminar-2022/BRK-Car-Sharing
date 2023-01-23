@@ -24,7 +24,7 @@ public class VehicleService {
 
     public Vehicle getVehicleById(String id) {
         return vehicleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Vehicle by ID - %d", id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Vehicle by ID - %s", id)));
     }
     public void updateVehicle(Vehicle vehicle) {
         Vehicle savedVehicle = vehicleRepository.findById(vehicle.getId()).orElseThrow(() -> new RuntimeException(String.format("Cannot Find Vehicle by ID %s", vehicle.getId())));
@@ -37,5 +37,8 @@ public class VehicleService {
 
     public void deleteVehicle(String id) {
         vehicleRepository.deleteById(id);
+    }
+    public List<Vehicle> getAvailableVehicles(String latitude, String longitude){
+        return vehicleRepository.getAvailableVehicles(latitude, longitude);
     }
 }

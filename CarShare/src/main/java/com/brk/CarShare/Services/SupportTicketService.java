@@ -29,4 +29,10 @@ public class SupportTicketService {
     public void updateSupportTicket(SupportTicket supportTicket) {
         supportTicketRepository.save(supportTicket);
     }
+    public List<SupportTicket> findSupportTicketByDescriptionContains(String description){
+        return supportTicketRepository.findSupportTicketByDescriptionContains(description);
+    }
+    public List<SupportTicket> findSupportTicketByDescriptionContains(String description, String dateFrom, String dateTo){
+        return supportTicketRepository.findSupportTicketByDescriptionContains(description, dateFrom, dateTo);
+    }
 }
