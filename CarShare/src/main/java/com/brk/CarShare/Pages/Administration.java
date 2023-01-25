@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Administration {
     @GetMapping("/administration/")
     public String GetIndex(){
-        return "dist/administration/index.html";
+        return "administration/index.html";
     }
 }

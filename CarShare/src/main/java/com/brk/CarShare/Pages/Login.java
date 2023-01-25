@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Login {
     @GetMapping("/login/")
     public String GetIndex(){
-        return "dist/login/index.html";
+        return "login/index.html";
     }
 }
 
