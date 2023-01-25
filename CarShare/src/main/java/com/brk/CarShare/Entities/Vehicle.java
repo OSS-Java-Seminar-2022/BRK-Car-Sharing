@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.lang.reflect.Array;
 import java.util.List;
 
 @Document(collection = "vehicle")
@@ -30,5 +29,5 @@ public class Vehicle {
     private String status;
     private String subscriptionTier;
     @Length(max = 2)
-    private List location;
+    private List<Double> location;
 }

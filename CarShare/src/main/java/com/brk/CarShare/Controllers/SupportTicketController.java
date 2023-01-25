@@ -39,5 +39,16 @@ public class SupportTicketController {
         supportTicketService.updateSupportTicket(supportTicket);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
+    @GetMapping("/findByDescription")
+    public ResponseEntity<List<SupportTicket>> getSupportTicketsByDescriptionContaining(String query){
+        return ResponseEntity.ok(supportTicketService.getSupportTicketsByDescriptionContaining(query));
+    }
+    @GetMapping("/findByDate")
+    public ResponseEntity<List<SupportTicket>> getSupportTicketsByTicketTimeBetween(String dateFrom, String dateTo){
+        return ResponseEntity.ok(supportTicketService.getSupportTicketsByTicketTimeBetween(dateFrom, dateTo));
+    }
+    @GetMapping("/findByDescriptionDate")
+    public ResponseEntity<List<SupportTicket>> getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(String query, String dateFrom, String dateTo){
+        return ResponseEntity.ok(supportTicketService.getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(query, dateFrom, dateTo));
+    }
 }

@@ -29,4 +29,15 @@ public class SupportTicketService {
     public void updateSupportTicket(SupportTicket supportTicket) {
         supportTicketRepository.save(supportTicket);
     }
+    public List<SupportTicket> getSupportTicketsByDescriptionContaining(String query){
+        return supportTicketRepository.getSupportTicketsByDescriptionContaining(query);
+    }
+    public List<SupportTicket> getSupportTicketsByTicketTimeBetween(String dateFrom, String dateTo){
+        return supportTicketRepository.getSupportTicketsByTicketTimeBetween(dateFrom, dateTo);
+    }
+    public List<SupportTicket> getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(String query, String dateFrom, String dateTo){
+        return supportTicketRepository.getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(query, dateFrom, dateTo);    }
+
+
+
 }

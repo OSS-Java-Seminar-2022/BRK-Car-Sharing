@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.lang.Math.sqrt;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +27,7 @@ public class VehicleService {
 
     public Vehicle getVehicleById(String id) {
         return vehicleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Vehicle by ID - %d", id)));
+                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Vehicle by ID - %s", id)));
     }
     public void updateVehicle(Vehicle vehicle) {
         Vehicle savedVehicle = vehicleRepository.findById(vehicle.getId()).orElseThrow(() -> new RuntimeException(String.format("Cannot Find Vehicle by ID %s", vehicle.getId())));
@@ -37,5 +40,9 @@ public class VehicleService {
 
     public void deleteVehicle(String id) {
         vehicleRepository.deleteById(id);
+    }
+    public List<Vehicle> getVehiclesByLocation(List<Double> coordinates, int distance){
+        List<Vehicle> savedVehicles = vehicleRepository.findAll();
+        return savedVehicles.stream().filter(add -> distance<sqrt(coordinates.get(0)+coordinates.get(1))).collect(Collectors.toList());
     }
 }
