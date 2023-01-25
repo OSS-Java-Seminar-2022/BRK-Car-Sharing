@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 const root = resolve(__dirname, "src");
 const outDir = resolve(
-  "C:\\Users\\bbule.SWINGINT\\Documents\\GitHub\\BRK-Car-Sharing\\CarShare\\src\\main\\resources\\templates\\dist"
+  "C:\\Users\\bbule.SWINGINT\\Documents\\GitHub\\BRK-Car-Sharing\\CarShare\\src\\main\\resources\\templates"
 );
 // https://vitejs.dev/config/
 export default defineConfig({

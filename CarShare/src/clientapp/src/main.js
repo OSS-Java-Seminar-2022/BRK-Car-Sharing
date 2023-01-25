@@ -15,11 +15,13 @@ const vuetify = createVuetify({
   directives,
 });
 
-// let authResp = await axios.get('api/auth/current-user')
-//
-// if(!authResp.data){
-//   window.location.assign("/login/")
-// }
+axios.get('api/auth/current-user').then((authResp)=>{
+  if(!authResp.data){
+    window.location.assign("/login/")
+  }
+})
+
+
 
 const app = createApp(HomePage);
 app.config.globalProperties.$http = axios;

@@ -14,12 +14,6 @@ const vuetify = createVuetify({
   directives,
 });
 
-// let authResp = await axios.get('/api/auth/current-user')
-//
-// if(authResp.data){
-//   window.location.assign("/login/")
-// }
-
 const app = createApp(LoginPage);
 app.config.globalProperties.$http = axios;
 app.config.globalProperties.$window = window;
