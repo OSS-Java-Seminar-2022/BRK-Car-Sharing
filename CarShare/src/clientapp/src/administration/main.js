@@ -8,7 +8,7 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import HomePage from "@/pages/HomePage.vue";
+import AdministrationPage from "@/pages/AdministrationPage.vue";
 
 const vuetify = createVuetify({
   components,
@@ -21,10 +21,10 @@ const vuetify = createVuetify({
 //   window.location.assign("/login/")
 // }
 
-const app = createApp(HomePage);
+const app = createApp(AdministrationPage);
 app.config.globalProperties.$http = axios;
 app.config.globalProperties.$window = window;
 app.use(createPinia());
 app.use(vuetify);
 
-app.mount("#home");
+app.mount("#administration");

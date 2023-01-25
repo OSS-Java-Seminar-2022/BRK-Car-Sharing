@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class Administration {
-    @GetMapping("/administration")
+    @GetMapping("/administration/")
     public String GetIndex(){
-        return "administration";
+        return "dist/administration/index.html";
     }
 }

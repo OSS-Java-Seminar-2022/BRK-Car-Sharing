@@ -1,5 +1,6 @@
 package com.brk.CarShare.security;
 
+import com.brk.CarShare.Entities.ERole;
 import com.brk.CarShare.security.jwt.AuthEntryPointJwt;
 import com.brk.CarShare.security.jwt.AuthTokenFilter;
 import com.brk.CarShare.security.services.UserDetailsServiceImpl;
@@ -65,10 +66,13 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/administration").permitAll();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().antMatchers("/api/auth/**").anonymous()
+                .and().authorizeRequests().antMatchers("/login/**").anonymous()
+                .and().authorizeRequests().antMatchers("/assets/**").anonymous()
+                .and().authorizeRequests().antMatchers("/administration/**").hasRole("ADMIN")
+                .and().authorizeRequests().antMatchers("/").hasRole("USER")
+                .and().authorizeRequests().anyRequest().hasAnyRole();
+
                 /*.anyRequest().authenticated();*/
 
         http.authenticationProvider(authenticationProvider());

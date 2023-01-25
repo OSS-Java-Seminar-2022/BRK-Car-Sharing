@@ -1,7 +1,10 @@
 package com.brk.CarShare;
 
 
-import com.brk.CarShare.Entities.*;
+import com.brk.CarShare.Entities.ERole;
+import com.brk.CarShare.Entities.Role;
+import com.brk.CarShare.Entities.User;
+import com.brk.CarShare.Entities.Vehicle;
 import com.brk.CarShare.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,66 +63,6 @@ public class CarShareApplication implements CommandLineRunner {
 			userRepository.save(new User("moderatinho","moderatorinho@gmail.com","password123",roles3));
 		}
 
-		if(supportTicketRepository.findAll().isEmpty()){
-			SupportTicket ticket1 = new SupportTicket();
-			ticket1.setTitle("Ticket 1");
-			ticket1.setDescription("Ticket 1 description");
-			ticket1.setIsClosed(false);
-			ticket1.setStatus("Open");
-			supportTicketRepository.save(ticket1);
-
-			SupportTicket ticket2 = new SupportTicket();
-			ticket2.setTitle("Ticket 2");
-			ticket2.setDescription("Ticket 2 description");
-			ticket2.setIsClosed(true);
-			ticket2.setStatus("Closed");
-			supportTicketRepository.save(ticket2);
-
-			SupportTicket ticket3 = new SupportTicket();
-			ticket3.setTitle("Ticket 3");
-			ticket3.setDescription("Ticket 3 description");
-			ticket3.setIsClosed(false);
-			ticket3.setStatus("Open");
-			supportTicketRepository.save(ticket3);
-
-		}
-
-		if (tripRepository.findAll().isEmpty()) {
-			Trip trip1 = new Trip();
-			trip1.setUserId("userId1");
-			trip1.setVehicleId("vehicleId1");
-			trip1.setStatus("Completed");
-			trip1.setStartLocation("Ul. Domovinskog rata 12");
-			trip1.setStartTime("2022-01-01 10:00:00");
-			trip1.setEndLocation("Los Angeles");
-			trip1.setEndTime("2022-01-01 12:00:00");
-			trip1.setDuration("2h");
-			tripRepository.save(trip1);
-
-			Trip trip2 = new Trip();
-			trip2.setUserId("userId2");
-			trip2.setVehicleId("vehicleId2");
-			trip2.setStatus("In Progress");
-			trip2.setStartLocation("Ul. Ivana Kukuljevića Sakcinskog 4");
-			trip2.setStartTime("2022-01-02 8:00:00");
-			trip2.setEndLocation("");
-			trip2.setEndTime("");
-			trip2.setDuration("");
-			tripRepository.save(trip2);
-
-			Trip trip3 = new Trip();
-			trip3.setUserId("userId3");
-			trip3.setVehicleId("vehicleId3");
-			trip3.setStatus("Cancelled");
-			trip3.setStartLocation("Put Skalica 44");
-			trip3.setStartTime("2022-01-03 6:00:00");
-			trip3.setEndLocation("");
-			trip3.setEndTime("");
-			trip3.setDuration("");
-			tripRepository.save(trip3);
-
-		}
-
 		if (vehicleRepository.findAll().isEmpty()) {
 			Vehicle vehicle1 = new Vehicle();
 			vehicle1.setMake("Tesla");
@@ -129,7 +73,7 @@ public class CarShareApplication implements CommandLineRunner {
 			vehicle1.setVin("123ABC456DEF789GHI");
 			vehicle1.setStatus("Available");
 			vehicle1.setSubscriptionTier("Premium");
-			vehicle1.setLocation("Split, Ul. Ivana Gundulića 7");
+			vehicle1.setLocation(Arrays.asList(43.512115,16.435917));
 			vehicleRepository.save(vehicle1);
 
 			Vehicle vehicle2 = new Vehicle();
@@ -141,7 +85,7 @@ public class CarShareApplication implements CommandLineRunner {
 			vehicle2.setVin("456DEF789GHI123ABC");
 			vehicle2.setStatus("Unavailable");
 			vehicle2.setSubscriptionTier("Standard");
-			vehicle2.setLocation("Split, Ul. Table 19 ");
+			vehicle2.setLocation(Arrays.asList(43.520164,16.429659));
 			vehicleRepository.save(vehicle2);
 
 			Vehicle vehicle3 = new Vehicle();
@@ -153,7 +97,7 @@ public class CarShareApplication implements CommandLineRunner {
 			vehicle3.setVin("789GHI123ABC456DEF");
 			vehicle3.setStatus("Available");
 			vehicle3.setSubscriptionTier("Basic");
-			vehicle3.setLocation("Split, Mažuranićevo šetalište 32");
+			vehicle3.setLocation(Arrays.asList(43.502668,16.475124));
 			vehicleRepository.save(vehicle3);
 		}
 

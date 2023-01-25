@@ -4,9 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class Index {
-    @GetMapping("/")
+public class Login {
+    @GetMapping("/login/")
     public String GetIndex(){
-        return "dist/index.html";
+        return "dist/login/index.html";
     }
 }
+

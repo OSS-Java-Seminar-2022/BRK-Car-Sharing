@@ -1,6 +1,5 @@
 import { createApp } from "vue";
-import { createPinia } from "pinia";
-import '@mdi/font/css/materialdesignicons.css'
+import "@mdi/font/css/materialdesignicons.css";
 import axios from "axios";
 
 // Vuetify
@@ -8,23 +7,22 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import HomePage from "@/pages/HomePage.vue";
+import LoginPage from "@/pages/LoginPage.vue";
 
 const vuetify = createVuetify({
   components,
   directives,
 });
 
-// let authResp = await axios.get('api/auth/current-user')
+// let authResp = await axios.get('/api/auth/current-user')
 //
-// if(!authResp.data){
+// if(authResp.data){
 //   window.location.assign("/login/")
 // }
 
-const app = createApp(HomePage);
+const app = createApp(LoginPage);
 app.config.globalProperties.$http = axios;
 app.config.globalProperties.$window = window;
-app.use(createPinia());
 app.use(vuetify);
 
-app.mount("#home");
+app.mount("#login");

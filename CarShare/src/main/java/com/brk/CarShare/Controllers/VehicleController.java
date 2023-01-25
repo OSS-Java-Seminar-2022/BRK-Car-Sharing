@@ -24,7 +24,7 @@ public class VehicleController {
     }
 
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
         return ResponseEntity.ok(vehicleService.getAllVehicles());
     }

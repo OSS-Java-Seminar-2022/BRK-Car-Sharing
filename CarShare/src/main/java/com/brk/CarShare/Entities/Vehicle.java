@@ -3,11 +3,14 @@ package com.brk.CarShare.Entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.lang.reflect.Array;
+import java.util.List;
 
 @Document(collection = "vehicle")
 @Data
@@ -26,5 +29,6 @@ public class Vehicle {
     private String vin;
     private String status;
     private String subscriptionTier;
-    private String location;
+    @Length(max = 2)
+    private List location;
 }
