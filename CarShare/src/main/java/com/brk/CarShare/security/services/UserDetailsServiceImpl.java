@@ -1,7 +1,7 @@
 package com.brk.CarShare.security.services;
 
 import com.brk.CarShare.Entities.User;
-import com.brk.CarShare.Repositories.UserRepository;
+import com.brk.CarShare.Repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    IUserRepository userRepository;
 
     @Override
     @Transactional

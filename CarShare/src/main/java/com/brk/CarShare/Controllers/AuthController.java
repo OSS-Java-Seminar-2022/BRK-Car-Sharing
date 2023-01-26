@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import com.brk.CarShare.Entities.ERole;
 import com.brk.CarShare.Entities.Role;
 import com.brk.CarShare.Entities.User;
-import com.brk.CarShare.Repositories.RoleRepository;
-import com.brk.CarShare.Repositories.UserRepository;
+import com.brk.CarShare.Repositories.IRoleRepository;
+import com.brk.CarShare.Repositories.IUserRepository;
 import com.brk.CarShare.payload.request.LoginRequest;
 import com.brk.CarShare.payload.request.SignupRequest;
 import com.brk.CarShare.payload.response.JwtResponse;
@@ -35,10 +35,10 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    IUserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    IRoleRepository roleRepository;
 
     @Autowired
     PasswordEncoder encoder;

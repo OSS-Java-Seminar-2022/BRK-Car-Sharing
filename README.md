@@ -1,4 +1,4 @@
-# BRK-Car-Sharing
+# **BRK-Car-Sharing**
 
 This project demonstrates a simple car sharing web application.
 
@@ -6,82 +6,65 @@ This project demonstrates a simple car sharing web application.
 
 
 ## Table of contents
--------------
 
+  - [Project Information](#Project-information)
+  - [Features](#Features)
+  - [Database Model](Database-model)
+  - [Tech stack](Tech-stack)
+  - [Authors](Authors)
 
-## Project Information
------------
+### Project information
+This is a project made for the "Programming in Java" course on the University of Split. It attempts to demonstrate a simple car sharing application and the way it works. It was developed under the [Authors](Authors) mentioned below.
+To start the application a docker container must be ran that contains the paramaters from the docker-compose file. To set it up, download Docker desktop for your system and run the container with:
 
+    $ docker-compose up
+    
+For development purposes it can be ran from the command line in the root folder(CarShare)
 
-## Features
------------
+    $ mvn spring-boot:run
+ 
+### Features
 
-<ul>
-    <li>
-        Account Management
-        <ul>
-            <li>User registration and login</li>
-            <li>User roles defined by account type (personal, business, admin)</li>
-            <li>User defined settings</li>
-        </ul>
-    </li>
-    <li>
-        Car Reservation
-        <ul>
-            <li>Locate nearest available vehicles</li>
-            <li>Reserve vehicle</li>
-            <li>Navigate customer to vehicle</li>
-            <li>Unlock vehicle via NFC (mock feature)</li>
-        </ul>
-    </li>
-    <li>
-        Admin panel
-        <ul>
-            <li>Manage users</li>
-            <li>Manage vehicle availability (available, in service, in cleaning, etc.)</li>
-            <li>Book car cleaning</li>
-            <li>Reply to support requests</li>
-        </ul>
-    </li>
-    <li>
-        Subscription model
-        <ul>
-            <li>Card payment</li>
-            <li>Tiered system (limited vehicles and services)</li>
-            <li>Down payment</li>
-        </ul>
-    </li>
-    <li>
-        Messaging
-        <ul>
-            <li>Push notifications</li>
-            <li>Support chat (wishful thining)</li>
-        </ul>
-    </li>
-</ul>
+- Account Management
+  - User registration and login
+  - User roles defined by account type (personal, business, admin)
+  - User defined settings
+        
+- Car Reservation
+  - Locate nearest available vehicles
+  - Reserve vehicle
+  - Navigate customer to vehicle
+
+- Admin panel
+  - Manage users
+  - Manage vehicle availability (available, in service, in cleaning, etc.)
+
+- Subscription model
+  - Card payment
+  - Tiered system (limited vehicles and services)
+  - Down payment
+
 
 ## Database model
-----------------
+
 ![Database model](https://user-images.githubusercontent.com/66143573/196203348-56621f9f-ae6e-4445-88d3-98d83fb44332.jpg)
 
 
 
 ## Tech stack
--------------
 
-<ul>
-    <li>Java</li>
-    <li>Spring Boot</li>
-    <li>Thymeleaf</li>
-    <li>Vue.js</li>
-    <li>Javascript</li>
-    <li>HTML 5</li>
-    <li>CSS 3</li>
-    <li>Bootstrap</li>
-    <li>Docker</li>
-    <li>MongoDB</li>
-    <li>RabbitMQ</li>
-</ul>
+- Java
+- Spring Boot
+- Thymeleaf
+- Vue.js
+- Javascript
+- HTML 5
+- CSS 3
+- Bootstrap
+- Docker
+- MongoDB
+- RabbitMQ
+
 
 ### Authors
 Bruno Bule [@bb00le](https://www.github.com/bb00le)

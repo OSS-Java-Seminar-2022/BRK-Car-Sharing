@@ -21,14 +21,14 @@ import java.util.Set;
 @EnableMongoRepositories
 public class CarShareApplication implements CommandLineRunner {
 
-	private final UserRepository userRepository;
-	private final RoleRepository roleRepository;
+	private final IUserRepository userRepository;
+	private final IRoleRepository roleRepository;
 	private final ISupportTicketRepository supportTicketRepository;
 	private final ITripRepository tripRepository;
 	private final IVehicleRepository vehicleRepository;
 
 	@Autowired
-	public CarShareApplication(UserRepository userRepository, RoleRepository roleRepository, ISupportTicketRepository supportTicketRepository, ITripRepository tripRepository, IVehicleRepository vehicleRepository){
+	public CarShareApplication(IUserRepository userRepository, IRoleRepository roleRepository, ISupportTicketRepository supportTicketRepository, ITripRepository tripRepository, IVehicleRepository vehicleRepository){
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.supportTicketRepository = supportTicketRepository;

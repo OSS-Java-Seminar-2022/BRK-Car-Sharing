@@ -18,11 +18,10 @@ public class VehicleController {
     @Autowired
     private final VehicleService vehicleService;
     @PostMapping("/add")
-    public ResponseEntity addVehicle(@RequestBody Vehicle vehicle) {
+    public ResponseEntity<?> addVehicle(@RequestBody Vehicle vehicle) {
         vehicleService.addVehicle(vehicle);
         return ResponseEntity.ok("Successfully added vehicle!");
     }
-
 
     @GetMapping("/all")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
@@ -44,6 +43,10 @@ public class VehicleController {
     public ResponseEntity deleteVehicle(@PathVariable String id) {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/getVehiclesInRange")
+    public List<Vehicle> getVehiclesByLocation(List<Double> coordinates, int distance){
+        return vehicleService.getVehiclesByLocation(coordinates, distance);
     }
 
 }

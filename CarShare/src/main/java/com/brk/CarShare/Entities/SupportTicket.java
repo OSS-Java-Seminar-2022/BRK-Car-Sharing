@@ -21,5 +21,6 @@ public class SupportTicket {
     private String description;
     private Boolean isClosed;
     private String status;
+    private String ticketTime;
     private User user;
 }
