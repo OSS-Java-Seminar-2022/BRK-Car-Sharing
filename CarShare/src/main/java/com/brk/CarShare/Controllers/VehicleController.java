@@ -36,7 +36,7 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.getVehicleById(id));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update")
     public ResponseEntity<Vehicle> updateVehicle(@RequestBody Vehicle vehicle) {
         vehicleService.updateVehicle(vehicle);
         return ResponseEntity.status(HttpStatus.OK).build();

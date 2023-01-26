@@ -30,7 +30,7 @@ public class TripController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Trip> getTripById(@PathVariable String id) {return ResponseEntity.ok(tripService.getTripById(id));}
-    @PostMapping
+    @PatchMapping("/update")
     public ResponseEntity<Trip> updateTrip(@RequestBody Trip trip){
         tripService.updateTrip(trip);
         return ResponseEntity.status(HttpStatus.OK).build();
