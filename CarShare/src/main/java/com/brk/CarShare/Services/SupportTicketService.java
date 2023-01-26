@@ -1,8 +1,11 @@
 package com.brk.CarShare.Services;
 
 import com.brk.CarShare.Entities.SupportTicket;
+import com.brk.CarShare.Entities.Trip;
 import com.brk.CarShare.Repositories.ISupportTicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +16,10 @@ import java.util.List;
 @Transactional
 public class SupportTicketService {
     private final ISupportTicketRepository supportTicketRepository;
+
+    public Page<SupportTicket> getAllSupportTicketsPaginated(Pageable pageable){
+        return supportTicketRepository.findAll(pageable);
+    }
 
     public void addSupportTicket(SupportTicket supportTicket)
     {

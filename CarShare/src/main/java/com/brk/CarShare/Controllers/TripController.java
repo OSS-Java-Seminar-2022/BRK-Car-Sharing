@@ -1,9 +1,12 @@
 package com.brk.CarShare.Controllers;
 
 import com.brk.CarShare.Entities.Trip;
+import com.brk.CarShare.Entities.Vehicle;
 import com.brk.CarShare.Services.TripService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +20,18 @@ public class TripController {
     @Autowired
     private final TripService tripService;
     @PostMapping("/add")
-    public ResponseEntity addTrip(@RequestBody Trip trip) {
+    public ResponseEntity<String> addTrip(@RequestBody Trip trip) {
         tripService.addTrip(trip);
         return ResponseEntity.ok("Succesfully added trip!");
     }
-    @GetMapping("/getAll")
-    public ResponseEntity<List<Trip>> getAllTickets(){return ResponseEntity.ok(tripService.getAllTrips());}
+    @GetMapping("/all")
+    public ResponseEntity<Page<Trip>> getAllTripsPaginated(Pageable pageable) {
+        return ResponseEntity.ok(tripService.getAllTripsPaginated(pageable));
+    }
     @GetMapping("/{id}")
-    public ResponseEntity getTripById(@PathVariable String id) {return ResponseEntity.ok(tripService.getTripById(id));}
+    public ResponseEntity<Trip> getTripById(@PathVariable String id) {return ResponseEntity.ok(tripService.getTripById(id));}
     @PostMapping
-    public ResponseEntity updateTrip(@RequestBody Trip trip){
+    public ResponseEntity<Trip> updateTrip(@RequestBody Trip trip){
         tripService.updateTrip(trip);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
