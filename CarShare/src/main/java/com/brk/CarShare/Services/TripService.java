@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -21,16 +23,30 @@ public class TripService {
         return tripRepository.findAll(pageable);
     }
     public void addTrip(Trip trip){tripRepository.insert(trip);}
+    public Trip startTrip(String userId, Vehicle vehicle){
+        Trip newTrip = new Trip(userId, vehicle);
+        tripRepository.insert(newTrip);
+        return newTrip;
+    }
+
     public List<Trip> getAllTrips() {
         return tripRepository.findAll();
     }
     public Trip getTripById(String id){
         return tripRepository.findById(id).orElseThrow(() -> new RuntimeException("Cannot find trip by ID"));
     }
-    public void updateTrip(Trip trip) {tripRepository.save(trip);}
     public List<Trip> getTripsByStartTimeBetween(String dateFrom, String dateTo){
         return tripRepository.getTripsByStartTimeBetween(dateFrom, dateTo);
     }
 
 
+    public Trip endTrip(Trip trip, List<Double> endLocation) {
+        trip.setEndLocation(endLocation);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        trip.setEndTime(dtf.format(now));
+        trip.setStatus("Ended");
+        tripRepository.save(trip);
+        return trip;
+    }
 }

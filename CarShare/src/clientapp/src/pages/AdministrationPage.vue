@@ -1,6 +1,6 @@
 <template>
   <v-app :theme="theme">
-    <v-navigation-drawer>
+    <v-navigation-drawer permanent rail expand-on-hover>
       <v-list>
         <v-list-item
           prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
@@ -26,21 +26,6 @@
           prepend-icon="mdi-view-dashboard"
           title="Dashboard"
           value="DashboardView"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-car"
-          title="Vehicles"
-          value="VehiclesView"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-file-document"
-          title="Tickets"
-          value="SupportTicketsView"
-        ></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-account"
-          title="Users"
-          value="UsersView"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>

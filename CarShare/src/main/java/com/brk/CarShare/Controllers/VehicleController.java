@@ -20,7 +20,7 @@ public class VehicleController {
     @Autowired
     private final VehicleService vehicleService;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<Page<Vehicle>> getAllVehiclesPaginated(Pageable pageable) {
         return ResponseEntity.ok(vehicleService.getAllVehiclesPaginated(pageable));
     }
@@ -31,6 +31,11 @@ public class VehicleController {
         return ResponseEntity.ok("Successfully added vehicle!");
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+        return ResponseEntity.ok(vehicleService.getAllVehicles());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Vehicle> getVehicleById(@PathVariable String id) {
         return ResponseEntity.ok(vehicleService.getVehicleById(id));
@@ -39,11 +44,11 @@ public class VehicleController {
     @PatchMapping("/update")
     public ResponseEntity<Vehicle> updateVehicle(@RequestBody Vehicle vehicle) {
         vehicleService.updateVehicle(vehicle);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok(vehicle);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Vehicle> deleteVehicle(@PathVariable String id) {
+    public ResponseEntity deleteVehicle(@PathVariable String id) {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
     }

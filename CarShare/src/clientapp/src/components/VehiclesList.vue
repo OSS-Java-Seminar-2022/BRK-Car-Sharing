@@ -28,6 +28,7 @@
         </tr>
       </tbody>
     </v-table>
+    <v-pagination v-model="page" :length="length" @update:modelValue="loadVehicles"></v-pagination>
   </v-card>
 </template>
 <script>
@@ -40,15 +41,12 @@ export default {
     return {
       vehicleList: [],
       loading: false,
+      page:1,
+      length:0,
     };
   },
   async created() {
-    this.loading = true;
-    const { data } = await this.$http.get(
-      "http://localhost:8989/api/vehicle/getAll"
-    );
-    this.vehicleList = data;
-    this.loading = false;
+    this.loadVehicles()
   },
   computed: {
     ...mapStores(useItemStore),
@@ -58,6 +56,15 @@ export default {
       this.currentItemStore.setLoading(true);
       this.currentItemStore.setCurrentItem(item);
     },
+    async loadVehicles(){
+      this.loading = true;
+      const { data } = await this.$http.get(
+          `/api/vehicle?page=${this.page-1}&size=10`
+      );
+      this.vehicleList = data.content;
+      this.length = data.totalPages
+      this.loading = false;
+    }
   },
 };
 </script>

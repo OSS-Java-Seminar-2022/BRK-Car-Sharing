@@ -28,6 +28,7 @@
         </tr>
       </tbody>
     </v-table>
+    <v-pagination v-model="page" :length="length" @update:modelValue="loadVehicles"></v-pagination>
   </v-card>
 </template>
 <script>
@@ -40,15 +41,12 @@ export default {
     return {
       ticketList: [],
       loading:false,
+      page:1,
+      length:0,
     };
   },
   async created() {
-    this.loading = true
-    const { data } = await this.$http.get(
-      "http://localhost:8989/api/supportTicket/getAll"
-    );
-    this.ticketList = data;
-    this.loading = false
+    this.loadTickets()
   },
   computed:{
     ...mapStores(useItemStore)
@@ -58,6 +56,15 @@ export default {
       this.currentItemStore.setLoading(true);
       this.currentItemStore.setCurrentItem(item)
     },
+    async loadTickets(){
+      this.loading = true
+      const { data } = await this.$http.get(
+          `/api/supportticket/all?page=${this.page}&size=10`
+      );
+      this.ticketList = data.content;
+      this.length = data.totalPages
+      this.loading = false
+    }
   }
 };
 </script>

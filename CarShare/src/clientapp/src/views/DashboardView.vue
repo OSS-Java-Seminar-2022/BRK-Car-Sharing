@@ -8,17 +8,19 @@
         <VehiclesList />
       </v-col>
     </v-row>
-    <ItemDetails />
+    <TicketDetails />
+    <VehicleDetails />
   </v-container>
 </template>
 
 <script>
 import TicketList from "@/components/TicketList.vue";
 import VehiclesList from "@/components/VehiclesList.vue";
-import ItemDetails from "@/components/ItemDetails.vue";
+import TicketDetails from "@/components/TicketDetails.vue";
+import VehicleDetails from "@/components/VehicleDetails.vue";
 export default {
   name: "DashboardView",
-  components: { TicketList, VehiclesList, ItemDetails },
+  components: { TicketList, VehiclesList, TicketDetails, VehicleDetails },
   data() {
     return {
       ticketList: [],
@@ -26,15 +28,6 @@ export default {
     };
   },
   async created() {
-    const ticketListResponse = await this.$http.get(
-      "http://localhost:8989/api/supportTicket/getAll"
-    );
-    this.ticketList = ticketListResponse.data;
-
-    const vehiclesListResponse = await this.$http.get(
-      "http://localhost:8989/api/vehicle/getAll"
-    );
-    this.vehiclesList = vehiclesListResponse.data;
   },
 };
 </script>

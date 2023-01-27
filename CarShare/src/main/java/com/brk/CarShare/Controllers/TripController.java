@@ -29,14 +29,21 @@ public class TripController {
         return ResponseEntity.ok(tripService.getAllTripsPaginated(pageable));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Trip> getTripById(@PathVariable String id) {return ResponseEntity.ok(tripService.getTripById(id));}
-    @PatchMapping("/update")
-    public ResponseEntity<Trip> updateTrip(@RequestBody Trip trip){
-        tripService.updateTrip(trip);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-    @GetMapping("/getTripsBy")
+    public ResponseEntity getTripById(@PathVariable String id) {return ResponseEntity.ok(tripService.getTripById(id));}
+    @GetMapping("/getTripsByDate")
     public ResponseEntity<List<Trip>> getTripsByStartTimeBetween(String dateFrom, String dateTo){
         return ResponseEntity.ok(tripService.getTripsByStartTimeBetween(dateFrom, dateTo));
+    }
+
+    @PostMapping("/start")
+    public ResponseEntity startTrip(@RequestParam String userId, @RequestBody Vehicle vehicle) {
+        Trip trip = tripService.startTrip(userId, vehicle);
+        return ResponseEntity.ok(trip);
+    }
+
+    @PostMapping("/end")
+    public ResponseEntity endTrip(@RequestBody Trip trip, @RequestParam List<Double> location) {
+        Trip respTrip = tripService.endTrip(trip, location);
+        return ResponseEntity.ok(respTrip);
     }
 }

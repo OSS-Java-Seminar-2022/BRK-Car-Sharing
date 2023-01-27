@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useItemStore = defineStore("currentItem",  {
   state:()=>({
     currentItem: {},
+    currentTrip:{},
     loading:false
   }),
   actions:{
@@ -14,6 +15,12 @@ export const useItemStore = defineStore("currentItem",  {
     },
     clearCurrentItem(){
       this.currentItem = {}
+    },
+    setCurrentTrip(trip){
+      this.currentTrip = trip
+    },
+    clearCurrentTrip(){
+      this.currentItem={}
     }
   }
 });

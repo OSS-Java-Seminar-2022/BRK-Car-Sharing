@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 @Service
@@ -49,6 +50,6 @@ public class VehicleService {
     }
     public List<Vehicle> getVehiclesByLocation(List<Double> coordinates, int distance){
         List<Vehicle> savedVehicles = vehicleRepository.findAll();
-        return savedVehicles.stream().filter(add -> distance<sqrt(coordinates.get(0)+coordinates.get(1))).collect(Collectors.toList());
+        return savedVehicles.stream().filter(vehicle -> distance<sqrt(pow(vehicle.getLocation().get(0) - coordinates.get(0), 2) + pow(vehicle.getLocation().get(1) - coordinates.get(1), 2) )).collect(Collectors.toList());
     }
 }

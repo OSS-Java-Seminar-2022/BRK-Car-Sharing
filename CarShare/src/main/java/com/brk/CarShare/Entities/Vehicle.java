@@ -30,4 +30,5 @@ public class Vehicle {
     private String subscriptionTier;
     @Length(max = 2)
     private List<Double> location;
+    private String imageUrl;
 }

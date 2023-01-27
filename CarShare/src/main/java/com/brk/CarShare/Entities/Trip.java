@@ -10,6 +10,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "trip")
@@ -20,7 +24,7 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String tripId;
-    private User user;
+    private String userId;
     private Vehicle vehicle;
     private String status;
     @Length(max = 2)
@@ -29,5 +33,16 @@ public class Trip {
     @Length(max = 2)
     private List endLocation;
     private String endTime;
-    private String duration;
+
+    public Trip(String userId, Vehicle vehicle){
+        this.userId=userId;
+        this.vehicle = vehicle;
+        this.status="Ongoing";
+        this.startLocation=vehicle.getLocation();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        this.startTime= dtf.format(now);
+        this.endTime="";
+        this.endLocation=new ArrayList<Double>();
+    }
 }

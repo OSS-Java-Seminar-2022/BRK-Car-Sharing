@@ -22,5 +22,5 @@ public class SupportTicket {
     private Boolean isClosed;
     private String status;
     private String ticketTime;
-    private User user;
+    private String userId;
 }

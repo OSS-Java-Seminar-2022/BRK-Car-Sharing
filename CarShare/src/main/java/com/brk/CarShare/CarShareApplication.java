@@ -1,9 +1,6 @@
 package com.brk.CarShare;
 
 
-import com.brk.CarShare.Entities.ERole;
-import com.brk.CarShare.Entities.Role;
-import com.brk.CarShare.Entities.User;
 import com.brk.CarShare.Entities.Vehicle;
 import com.brk.CarShare.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +11,17 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableMongoRepositories
 public class CarShareApplication implements CommandLineRunner {
 
-	private final IUserRepository userRepository;
-	private final IRoleRepository roleRepository;
 	private final ISupportTicketRepository supportTicketRepository;
 	private final ITripRepository tripRepository;
 	private final IVehicleRepository vehicleRepository;
 
 	@Autowired
-	public CarShareApplication(IUserRepository userRepository, IRoleRepository roleRepository, ISupportTicketRepository supportTicketRepository, ITripRepository tripRepository, IVehicleRepository vehicleRepository){
-		this.userRepository = userRepository;
-		this.roleRepository = roleRepository;
+	public CarShareApplication( ISupportTicketRepository supportTicketRepository, ITripRepository tripRepository, IVehicleRepository vehicleRepository){
 		this.supportTicketRepository = supportTicketRepository;
 		this.tripRepository = tripRepository;
 		this.vehicleRepository = vehicleRepository;
@@ -41,27 +32,6 @@ public class CarShareApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		if(userRepository.findAll().isEmpty()){
-			Role userRole = new Role(ERole.ROLE_USER);
-			Role adminRole = new Role(ERole.ROLE_ADMIN);
-			Role moderatorRole = new Role(ERole.ROLE_MODERATOR);
-			roleRepository.save(userRole);
-			roleRepository.save(adminRole);
-			roleRepository.save(moderatorRole);
-			Set<Role> roles = new HashSet<>();
-			Set<Role> roles2 = new HashSet<>();
-			Set<Role> roles3 = new HashSet<>();
-			roles.add(userRole);
-			roles2.add(adminRole);
-			roles3.add(moderatorRole);
-			userRepository.save(new User("Gandalf","gandalf123@gmail.com","password123",roles));
-			userRepository.save(new User("Perosaurus","perosaurus@gmail.com","password123",roles));
-			userRepository.save(new User("Nickname","nickname@gmail.com","password123",roles));
-			userRepository.save(new User("Adminsaurus","adminsaurus@gmail.com","password123",roles2));
-			userRepository.save(new User("userinho","userinho@gmail.com","password123",roles));
-			userRepository.save(new User("moderatinho","moderatorinho@gmail.com","password123",roles3));
-		}
 
 		if (vehicleRepository.findAll().isEmpty()) {
 			Vehicle vehicle1 = new Vehicle();
@@ -74,6 +44,7 @@ public class CarShareApplication implements CommandLineRunner {
 			vehicle1.setStatus("Available");
 			vehicle1.setSubscriptionTier("Premium");
 			vehicle1.setLocation(Arrays.asList(43.512115,16.435917));
+			vehicle1.setImageUrl("https://tesla-cdn.thron.com/delivery/public/image/tesla/c82315a6-ac99-464a-a753-c26bc0fb647d/bvlatuR/std/1200x628/lhd-model-3-social");
 			vehicleRepository.save(vehicle1);
 
 			Vehicle vehicle2 = new Vehicle();
@@ -86,6 +57,7 @@ public class CarShareApplication implements CommandLineRunner {
 			vehicle2.setStatus("Unavailable");
 			vehicle2.setSubscriptionTier("Standard");
 			vehicle2.setLocation(Arrays.asList(43.520164,16.429659));
+			vehicle1.setImageUrl("https://media.ed.edmunds-media.com/chevrolet/bolt-ev/2023/oem/2023_chevrolet_bolt-ev_4dr-hatchback_2lt_fq_oem_1_1280.jpg");
 			vehicleRepository.save(vehicle2);
 
 			Vehicle vehicle3 = new Vehicle();
@@ -98,11 +70,10 @@ public class CarShareApplication implements CommandLineRunner {
 			vehicle3.setStatus("Available");
 			vehicle3.setSubscriptionTier("Basic");
 			vehicle3.setLocation(Arrays.asList(43.502668,16.475124));
+			vehicle1.setImageUrl("https://www.topgear.com/sites/default/files/2021/10/LEAF10%20SV%20-%20018.jpg");
 			vehicleRepository.save(vehicle3);
+
+			System.out.println("SEEDED VEHICLE DATA");
 		}
-
-		System.out.println("SEED DUNDO MAROJE");
-
-
 	}
 }

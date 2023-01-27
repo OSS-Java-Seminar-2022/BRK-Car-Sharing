@@ -18,7 +18,6 @@ export default defineConfig({
       input: {
         main: resolve(root, "index.html"),
         administration: resolve(root, "administration/index.html"),
-        login: resolve(root, "login/index.html"),
       },
     },
   },
