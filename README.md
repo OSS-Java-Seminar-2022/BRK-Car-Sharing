@@ -59,7 +59,7 @@ This is a project made for the "Programming in Java" course on the University of
 - Keycloak
 
 
-### Authors
+## Authors
 
 Bruno Bule [@bb00le](https://www.github.com/bb00le)
 
