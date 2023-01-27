@@ -3,6 +3,8 @@ package com.brk.CarShare.Services;
 import com.brk.CarShare.Entities.Vehicle;
 import com.brk.CarShare.Repositories.IVehicleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,10 @@ public class VehicleService {
     }
     public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
+    }
+
+    public Page<Vehicle> getAllVehiclesPaginated(Pageable pageable){
+        return vehicleRepository.findAll(pageable);
     }
 
     public Vehicle getVehicleById(String id) {
