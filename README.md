@@ -2,7 +2,8 @@
 
 This project demonstrates a simple car sharing web application.
 
-<img width="1005" alt="image" src="https://user-images.githubusercontent.com/66143573/194909254-e7dfcbc3-6f2e-4005-bd94-1fbb23877168.png">
+<img width="1277" alt="image" src="https://user-images.githubusercontent.com/66143573/215118541-db320361-8fc8-4f8b-a325-b7443d3e7d5a.png">
+
 
 
 ## Table of contents
@@ -15,40 +16,32 @@ This project demonstrates a simple car sharing web application.
 
 ### Project information
 This is a project made for the "Programming in Java" course on the University of Split. It attempts to demonstrate a simple car sharing application and the way it works. It was developed under the [Authors](Authors) mentioned below.
-To start the application a docker container must be ran that contains the paramaters from the docker-compose file. To set it up, download Docker desktop for your system and run the container with:
-
-    $ docker-compose up
-    
-For development purposes it can be ran from the command line in the root folder(CarShare)
-
-    $ mvn spring-boot:run
  
 ### Features
 
 - Account Management
   - User registration and login
-  - User roles defined by account type (personal, business, admin)
+  - User roles defined by subscription tier (basic, standard, premium)
   - User defined settings
+    - day/night mode
+    - Account self management (through Keycloak)
         
 - Car Reservation
   - Locate nearest available vehicles
   - Reserve vehicle
-  - Navigate customer to vehicle
+  - Unlock vehicle via NFC
 
-- Admin panel
-  - Manage users
+- Admin panels
+  - Manage users (through Keycloak)
   - Manage vehicle availability (available, in service, in cleaning, etc.)
 
 - Subscription model
-  - Card payment
   - Tiered system (limited vehicles and services)
-  - Down payment
 
 
 ## Database model
 
-![Database model](https://user-images.githubusercontent.com/66143573/196203348-56621f9f-ae6e-4445-88d3-98d83fb44332.jpg)
-
+![Database model](https://user-images.githubusercontent.com/66143573/215121307-e67fd36e-d955-4659-b39c-c12fb91a1bf0.png)
 
 
 ## Tech stack
@@ -60,10 +53,9 @@ For development purposes it can be ran from the command line in the root folder(
 - Javascript
 - HTML 5
 - CSS 3
-- Bootstrap
+- Vueitfy
 - Docker
 - MongoDB
-- RabbitMQ
 
 
 ### Authors
