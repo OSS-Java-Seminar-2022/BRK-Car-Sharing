@@ -56,6 +56,7 @@ This is a project made for the "Programming in Java" course on the University of
 - Vueitfy
 - Docker
 - MongoDB
+- Keycloak
 
 
 ### Authors
