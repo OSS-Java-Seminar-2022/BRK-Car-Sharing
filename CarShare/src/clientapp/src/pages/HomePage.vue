@@ -32,6 +32,7 @@
               :readonly="true"
               class="mt-4 mx-4"
               :model-value="address"
+              append-inner-icon="mdi-map-marker-account"
             ></v-text-field>
             <v-list class="overflow-x-scroll" :height="410">
               <v-list-item
@@ -63,7 +64,7 @@
             </v-list>
           </v-card>
         </div>
-        <v-card class="flat w-100 h-75 hidden-md-and-up">
+        <v-card class="flat w-100 h-75 hidden-md-and-up" v-if="!tripActive">
           <v-card-title class="my-5 text-h4">Catch a ride</v-card-title>
 
           <v-carousel :show-arrows="false" hide-delimiters>

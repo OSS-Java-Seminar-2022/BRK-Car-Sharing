@@ -1,11 +1,11 @@
 <template>
   <v-app :theme="theme">
-    <v-navigation-drawer permanent rail expand-on-hover>
+    <v-navigation-drawer :width="300" permanent >
       <v-list>
         <v-list-item
-          prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-          title="Sandra Adams"
-          subtitle="sandra_a88@gmailcom"
+          :prepend-avatar="`https://api.dicebear.com/5.x/bottts-neutral/svg?seed=${user.name}`"
+          :title="user.name"
+          :subtitle="user.email"
           ><template v-slot:append>
             <v-btn
               class="ml-5"
@@ -44,7 +44,11 @@ export default {
     return {
       theme: ref("dark"),
       selectedView: "DashboardView",
+      user:{name:'',email:''},
     };
+  },
+  async mounted() {
+    this.user = await this.$keycloak.loadUserInfo()
   },
   components: {
     DashboardView,

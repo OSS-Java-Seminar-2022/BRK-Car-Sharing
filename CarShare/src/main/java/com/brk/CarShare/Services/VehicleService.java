@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.lang.Math.pow;
@@ -25,7 +26,8 @@ public class VehicleService {
         vehicleRepository.insert(vehicle);
     }
     public List<Vehicle> getAllVehicles() {
-        return vehicleRepository.findAll();
+        List<Vehicle> vehicleList = vehicleRepository.findAll();
+        return vehicleList.stream().filter(vehicle -> Objects.equals(vehicle.getStatus(), "Available")).collect(Collectors.toList());
     }
 
     public Page<Vehicle> getAllVehiclesPaginated(Pageable pageable){
