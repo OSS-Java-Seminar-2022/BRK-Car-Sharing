@@ -1,8 +1,7 @@
 package com.brk.CarShare.Services;
 
 import com.brk.CarShare.Entities.SupportTicket;
-import com.brk.CarShare.Entities.Trip;
-import com.brk.CarShare.Repositories.ISupportTicketRepository;
+import com.brk.CarShare.Repositories.SupportTicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class SupportTicketService {
-    private final ISupportTicketRepository supportTicketRepository;
+    private final SupportTicketRepository supportTicketRepository;
 
     public Page<SupportTicket> getAllSupportTicketsPaginated(Pageable pageable){
         return supportTicketRepository.findAll(pageable);

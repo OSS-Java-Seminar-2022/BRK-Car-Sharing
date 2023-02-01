@@ -2,7 +2,7 @@ package com.brk.CarShare.Services;
 
 import com.brk.CarShare.Entities.Trip;
 import com.brk.CarShare.Entities.Vehicle;
-import com.brk.CarShare.Repositories.ITripRepository;
+import com.brk.CarShare.Repositories.TripRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class TripService {
-    private final ITripRepository tripRepository;
+    private final TripRepository tripRepository;
 
     public Page<Trip> getAllTripsPaginated(Pageable pageable){
         return tripRepository.findAll(pageable);
