@@ -23,10 +23,10 @@ public class VehicleController {
     private final VehicleService vehicleService;
 
     @GetMapping("")
-    public Page<Vehicle> getVehicles(@RequestParam(value = "searchTerm", required = false) String searchTerm,
-                                     @RequestParam(value = "resultLimit", defaultValue = "10") int resultLimit,
-                                     @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
-        return vehicleService.getVehicles(searchTerm, resultLimit, pageable);
+    public Page<Vehicle> getVehiclesBySearchTerm(@RequestParam("searchTerm") String searchTerm,
+                                                 @RequestParam("resultLimit") int resultLimit,
+                                                 Pageable pageable) {
+        return vehicleService.findBySearchTerm(searchTerm, resultLimit, pageable);
     }
 
     @PostMapping("/add")

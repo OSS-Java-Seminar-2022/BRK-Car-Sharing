@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -56,11 +57,11 @@ public class VehicleService {
         List<Vehicle> savedVehicles = vehicleRepository.findAll();
         return savedVehicles.stream().filter(vehicle -> distance<sqrt(pow(vehicle.getLocation().get(0) - coordinates.get(0), 2) + pow(vehicle.getLocation().get(1) - coordinates.get(1), 2) )).collect(Collectors.toList());
     }
-    public Page<Vehicle> getVehicles(String searchTerm, int resultLimit, Pageable pageable) {
-        if (searchTerm == null || searchTerm.isEmpty()) {
-            return vehicleRepository.findAll(PageRequest.of(0, resultLimit, Sort.by("make")));
-        } else {
-            return vehicleRepository.findByMake(searchTerm, PageRequest.of(0, resultLimit, Sort.by("make")));
+    public Page<Vehicle> findBySearchTerm(String searchTerm, int resultLimit, Pageable pageable) {
+        if(StringUtils.isEmpty(searchTerm)){
+            return vehicleRepository.findAll(pageable);
+        }else {
+            return vehicleRepository.findByMakeContainingIgnoreCaseOrModelContainingIgnoreCase(searchTerm, resultLimit, pageable);
         }
     }
 }
