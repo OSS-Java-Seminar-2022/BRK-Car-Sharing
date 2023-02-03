@@ -4,9 +4,7 @@ import com.brk.CarShare.Entities.Vehicle;
 import com.brk.CarShare.Repositories.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
@@ -62,6 +60,14 @@ public class VehicleService {
             return vehicleRepository.findAll(pageable);
         }else {
             return vehicleRepository.findByMakeContainingIgnoreCaseOrModelContainingIgnoreCase(searchTerm, resultLimit, pageable);
+        }
+    }
+
+    public Page<Vehicle> findVehiclesBySearchTerm(String searchTerm, Pageable pageable) {
+        if (StringUtils.isEmpty(searchTerm)) {
+            return vehicleRepository.findAll(pageable);
+        } else {
+            return vehicleRepository.findByAllAttributesContainingIgnoreCase(searchTerm, pageable);
         }
     }
 }

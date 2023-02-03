@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +22,12 @@ public class TripController {
     public ResponseEntity<String> addTrip(@RequestBody Trip trip) {
         tripService.addTrip(trip);
         return ResponseEntity.ok("Succesfully added trip!");
+    }
+
+    @GetMapping("")
+    public Page<Trip> getTrips(@RequestParam(value = "searchTerm", required = false) String searchTerm,
+                               Pageable pageable) {
+        return tripService.findTripsBySearchTerm(searchTerm, pageable);
     }
     @GetMapping("/all")
     public ResponseEntity<Page<Trip>> getAllTripsPaginated(Pageable pageable) {

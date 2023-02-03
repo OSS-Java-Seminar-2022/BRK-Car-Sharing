@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -48,5 +49,13 @@ public class TripService {
         trip.setStatus("Ended");
         tripRepository.save(trip);
         return trip;
+    }
+
+    public Page<Trip> findTripsBySearchTerm(String searchTerm, Pageable pageable) {
+        if (StringUtils.isEmpty(searchTerm)) {
+            return tripRepository.findAll(pageable);
+        } else {
+            return tripRepository.findBySearchTerm(searchTerm, pageable);
+        }
     }
 }

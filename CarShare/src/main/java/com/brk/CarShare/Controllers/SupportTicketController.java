@@ -26,6 +26,11 @@ public class SupportTicketController {
         return ResponseEntity.ok("Succesfully added support ticket!");
     }
 
+    @GetMapping("")
+    public Page<SupportTicket> findSupportTicketsBySearchTerm(@RequestParam(required = false) String searchTerm, Pageable pageable) {
+        return supportTicketService.findSupportTicketsBySearchTerm(searchTerm, pageable);
+    }
+
 
     @GetMapping("/all")
     public ResponseEntity<Page<SupportTicket>> getAllSupportTicketsPaginated(Pageable pageable) {

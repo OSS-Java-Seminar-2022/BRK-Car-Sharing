@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
@@ -43,6 +44,14 @@ public class SupportTicketService {
     }
     public List<SupportTicket> getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(String query, String dateFrom, String dateTo){
         return supportTicketRepository.getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(query, dateFrom, dateTo);    }
+
+    public Page<SupportTicket> findSupportTicketsBySearchTerm(String searchTerm, Pageable pageable) {
+        if(StringUtils.isEmpty(searchTerm)){
+            return supportTicketRepository.findAll(pageable);
+        }else {
+            return supportTicketRepository.findByAllAttributesContainingIgnoreCase(searchTerm, pageable);
+        }
+    }
 
 
 

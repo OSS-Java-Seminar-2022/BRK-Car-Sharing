@@ -6,14 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/vehicle")
@@ -28,6 +24,14 @@ public class VehicleController {
                                                  @RequestParam(defaultValue = "100") int resultLimit,
                                                  Pageable pageable) {
         return vehicleService.findBySearchTerm(searchTerm, resultLimit, pageable);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Page<Vehicle>> findVehiclesBySearchTerm(
+            @RequestParam(value = "searchTerm", required = false) String searchTerm,
+            Pageable pageable) {
+        Page<Vehicle> vehicles = vehicleService.findVehiclesBySearchTerm(searchTerm, pageable);
+        return ResponseEntity.ok(vehicles);
     }
 
     @PostMapping("/add")
