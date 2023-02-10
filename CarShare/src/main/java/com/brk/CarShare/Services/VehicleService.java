@@ -1,12 +1,13 @@
 package com.brk.CarShare.Services;
 
 import com.brk.CarShare.Entities.Vehicle;
-import com.brk.CarShare.Repositories.IVehicleRepository;
+import com.brk.CarShare.Repositories.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,7 @@ import static java.lang.Math.sqrt;
 @RequiredArgsConstructor
 @Transactional
 public class VehicleService {
-    private final IVehicleRepository vehicleRepository;
+    private final VehicleRepository vehicleRepository;
 
     public void addVehicle(Vehicle vehicle)
     {
@@ -53,5 +54,20 @@ public class VehicleService {
     public List<Vehicle> getVehiclesByLocation(List<Double> coordinates, int distance){
         List<Vehicle> savedVehicles = vehicleRepository.findAll();
         return savedVehicles.stream().filter(vehicle -> distance<sqrt(pow(vehicle.getLocation().get(0) - coordinates.get(0), 2) + pow(vehicle.getLocation().get(1) - coordinates.get(1), 2) )).collect(Collectors.toList());
+    }
+    public Page<Vehicle> findBySearchTerm(String searchTerm, int resultLimit, Pageable pageable) {
+        if(StringUtils.isEmpty(searchTerm)){
+            return vehicleRepository.findAll(pageable);
+        }else {
+            return vehicleRepository.findByMakeContainingIgnoreCaseOrModelContainingIgnoreCase(searchTerm, resultLimit, pageable);
+        }
+    }
+
+    public Page<Vehicle> findVehiclesBySearchTerm(String searchTerm, Pageable pageable) {
+        if (StringUtils.isEmpty(searchTerm)) {
+            return vehicleRepository.findAll(pageable);
+        } else {
+            return vehicleRepository.findByAllAttributesContainingIgnoreCase(searchTerm, pageable);
+        }
     }
 }

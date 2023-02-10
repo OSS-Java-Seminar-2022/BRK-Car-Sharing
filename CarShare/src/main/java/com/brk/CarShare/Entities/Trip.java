@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,20 +31,20 @@ public class Trip {
     private String status;
     @Length(max = 2)
     private List startLocation;
-    private String startTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime startTime;
     @Length(max = 2)
     private List endLocation;
-    private String endTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime endTime;
 
     public Trip(String userId, Vehicle vehicle){
         this.userId=userId;
         this.vehicle = vehicle;
         this.status="Ongoing";
         this.startLocation=vehicle.getLocation();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        this.startTime= dtf.format(now);
-        this.endTime="";
+        this.startTime= LocalDateTime.now();
+        this.endTime=null;
         this.endLocation=new ArrayList<Double>();
     }
 }

@@ -16,12 +16,12 @@ import java.util.Arrays;
 @EnableMongoRepositories
 public class CarShareApplication implements CommandLineRunner {
 
-	private final ISupportTicketRepository supportTicketRepository;
-	private final ITripRepository tripRepository;
-	private final IVehicleRepository vehicleRepository;
+	private final SupportTicketRepository supportTicketRepository;
+	private final TripRepository tripRepository;
+	private final VehicleRepository vehicleRepository;
 
 	@Autowired
-	public CarShareApplication( ISupportTicketRepository supportTicketRepository, ITripRepository tripRepository, IVehicleRepository vehicleRepository){
+	public CarShareApplication(SupportTicketRepository supportTicketRepository, TripRepository tripRepository, VehicleRepository vehicleRepository){
 		this.supportTicketRepository = supportTicketRepository;
 		this.tripRepository = tripRepository;
 		this.vehicleRepository = vehicleRepository;

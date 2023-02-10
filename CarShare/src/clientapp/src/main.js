@@ -1,18 +1,23 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import "@mdi/font/css/materialdesignicons.css";
-import axios from "axios";
 import Keycloak from "keycloak-js";
 // Vuetify
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
+import { VDataTableServer } from "vuetify/labs/components";
 import * as directives from "vuetify/directives";
 import HomePage from "@/pages/HomePage.vue";
 import httpClient from "@/utils/http.util.js";
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const vuetify = createVuetify({
-  components,
+  components: {
+    VDataTableServer,
+    ...components,
+  },
   directives,
 });
 
@@ -43,6 +48,7 @@ keycloak
       app.config.globalProperties.$keycloak = keycloak;
       app.use(createPinia());
       app.use(vuetify);
+      app.component('Datepicker', Datepicker)
 
       app.mount("#home");
 

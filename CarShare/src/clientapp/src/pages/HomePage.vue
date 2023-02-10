@@ -2,8 +2,12 @@
   <v-app :theme="theme">
     <v-app-bar>
       <v-app-bar-title>BRK CarShare</v-app-bar-title>
-      <v-btn variant="tonal" color="red" @click="endTrip" v-if="tripActive">End Trip</v-btn>
+      <v-btn variant="tonal" color="red" @click="endTrip" v-if="tripActive"
+        >End Trip</v-btn
+      >
       <template v-slot:append>
+        <TripHistory :theme="theme"></TripHistory>
+        <SupportTicketList :theme="theme"></SupportTicketList>
         <UserMenu />
         <v-btn
           :ripple="false"
@@ -74,7 +78,11 @@
               :key="vehicle"
               :value="index"
             >
-              <v-card class="elevation-4 ml-4" :width="350" @click="openOrderModal(vehicle)">
+              <v-card
+                class="elevation-4 ml-4"
+                :width="350"
+                @click="openOrderModal(vehicle)"
+              >
                 <v-img :src="vehicle.imageUrl" :aspect-ratio="16 / 9" cover />
                 <div>{{ vehicle.make + " " + vehicle.model }}</div>
                 <div class="text-subtitle-2">
@@ -87,73 +95,77 @@
       </v-container>
     </v-main>
     <v-dialog v-model="currentItemSet">
-      <v-container class="d-flex align-center justify-center">
-        <v-card :height="500" :width="400">
-          <v-row>
-            <v-img
-              :src="currentItemStore.currentItem.imageUrl"
-              :aspect-ratio="16 / 9"
-              cover
-              :width="400"
-            />
-          </v-row>
-          <v-row class="px-10 py-5">
-            <v-text-field
-              variant="outlined"
-              label="Make"
-              readonly
-              :model-value="currentItemStore.currentItem.make"
-            />
-            <v-text-field
-              variant="outlined"
-              label="Model"
-              readonly
-              :model-value="currentItemStore.currentItem.model"
-            />
-            <v-text-field
-              variant="outlined"
-              label="Model year"
-              readonly
-              :model-value="currentItemStore.currentItem.modelYear"
-            />
-          </v-row>
-          <v-row class="px-10">
-            <v-text-field
-              variant="outlined"
-              label="Fuel"
-              readonly
-              :model-value="currentItemStore.currentItem.fuelType"
-            />
-            <v-text-field
-              variant="outlined"
-              label="Registration No."
-              readonly
-              :model-value="currentItemStore.currentItem.registration"
-            />
-            <v-text-field
-              variant="outlined"
-              label="Tier"
-              readonly
-              :model-value="currentItemStore.currentItem.subscriptionTier"
-            />
-          </v-row>
-          <v-row class="px-10 justify-center">
-            <v-btn
-              variant="tonal"
-              color="blue"
-              @click="orderVehicle(currentItemStore.currentItem)"
-              >Book now</v-btn
-            >
-          </v-row>
-        </v-card>
-      </v-container>
+      <v-card
+        :height="600"
+        :width="450"
+        class="align-self-center overflow-hidden"
+      >
+        <v-row>
+          <v-img
+            :src="currentItemStore.currentItem.imageUrl"
+            :aspect-ratio="16 / 9"
+            cover
+            :width="400"
+          />
+        </v-row>
+        <v-row class="px-10 py-5">
+          <v-text-field
+            variant="outlined"
+            label="Make"
+            readonly
+            :model-value="currentItemStore.currentItem.make"
+          />
+          <v-text-field
+            variant="outlined"
+            label="Model"
+            readonly
+            :model-value="currentItemStore.currentItem.model"
+          />
+          <v-text-field
+            variant="outlined"
+            label="Model year"
+            readonly
+            :model-value="currentItemStore.currentItem.modelYear"
+          />
+        </v-row>
+        <v-row class="px-10">
+          <v-text-field
+            variant="outlined"
+            label="Fuel"
+            readonly
+            :model-value="currentItemStore.currentItem.fuelType"
+          />
+          <v-text-field
+            variant="outlined"
+            label="Registration No."
+            readonly
+            :model-value="currentItemStore.currentItem.registration"
+          />
+          <v-text-field
+            variant="outlined"
+            label="Tier"
+            readonly
+            :model-value="currentItemStore.currentItem.subscriptionTier"
+          />
+        </v-row>
+        <v-row class="px-10 justify-center">
+          <v-btn
+            variant="tonal"
+            color="blue"
+            @click="orderVehicle(currentItemStore.currentItem)"
+            >Book now</v-btn
+          >
+        </v-row>
+      </v-card>
     </v-dialog>
     <v-dialog v-model="onDirections" persistent>
       <v-container class="d-flex align-center justify-center">
-        <v-card :height="500" :width="400" class="d-flex flex-column align-center justify-space-evenly rounded-lg">
-          <div class="text-h6 px-5 mt-5">
-            Please navigate to:
-          </div>
+        <v-card
+          :height="500"
+          :width="400"
+          class="d-flex flex-column align-center justify-space-evenly rounded-lg"
+        >
+          <div class="text-h6 px-5 mt-5">Please navigate to:</div>
           <div class="text-h5 px-5">
             {{ currentItemStore.currentItem.address }}
           </div>
@@ -173,11 +185,15 @@ import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
 import constants from "@/constants.js";
 import UserMenu from "@/components/UserMenu.vue";
 import { useItemStore } from "@/stores/itemStore.js";
-import{useUserStore} from "@/stores/userStore.js";
+import { useUserStore } from "@/stores/userStore.js";
 import { mapStores } from "pinia";
+import TripHistory from "@/components/Trips/TripHistory.vue";
+import SupportTicketList from "@/components/SupportTickets/SupportTicketTable.vue";
+import { useVehicleStore } from "@/stores/vehicleStore.js";
+// import MapboxDirections from "@mapbox/mapbox-gl-directions";
 
 export default {
-  components: { UserMenu },
+  components: { SupportTicketList, UserMenu, TripHistory },
   data() {
     return {
       theme: ref("dark"),
@@ -186,17 +202,24 @@ export default {
       currentItemSet: false,
       vehicleKey: null,
       failSnack: false,
-      failSnackMsg:"Sorry, something went wrong on our end. Please try again.",
+      failSnackMsg: "Sorry, something went wrong on our end. Please try again.",
       onDirections: false,
       map: null,
       location: null,
-      tripActive:false,
+      tripActive: false,
+      directions: null,
     };
   },
   computed: {
-    ...mapStores(useItemStore, useUserStore),
+    ...mapStores(useItemStore, useUserStore, useVehicleStore),
   },
   async mounted() {
+    navigator.geolocation.watchPosition(this.getCurrentPosition);
+    // this.directions = new MapboxDirections({
+    //   accessToken: constants.accessToken,
+    //   unit: 'metric',
+    //   profile:'mapbox/driving'
+    // });
     mapboxgl.accessToken = constants.accessToken;
     this.map = new mapboxgl.Map({
       container: "map",
@@ -215,8 +238,8 @@ export default {
       })
     );
 
-    let resp = await this.$http.get("/api/vehicle/all");
-    this.vehiclesList = resp.data;
+    await this.vehicleStore.loadVehicles(this.$http);
+    this.vehiclesList = this.vehicleStore.vehicleList;
 
     this.map.on("load", () => {
       this.map.loadImage(
@@ -269,6 +292,12 @@ export default {
     });
   },
   methods: {
+    getCurrentPosition: function () {
+      navigator.geolocation.getCurrentPosition(async (location) => {
+        this.location = [location.coords.longitude, location.coords.latitude];
+        this.address = await this.getAddressFromLocation(this.location);
+      });
+    },
     onClick() {
       this.theme = this.theme === "light" ? "dark" : "light";
     },
@@ -288,51 +317,52 @@ export default {
         let resp = await this.$http.patch("api/vehicle/update", vehicle);
         if (resp.status === 200) {
           this.currentItemStore.setCurrentItem(vehicle);
-          delete vehicle.address
-          resp = await this.$http.post(`api/trip/start?userId=${this.userStore.user.sub}`, vehicle)
-          this.onDirections=false
-          this.currentItemStore.setCurrentTrip(resp.data)
-          this.tripActive=true;
+          delete vehicle.address;
+          resp = await this.$http.post(
+            `api/trip/start?userId=${this.userStore.user.sub}`,
+            vehicle
+          );
+          this.onDirections = false;
+          this.currentItemStore.setCurrentTrip(resp.data);
+          this.tripActive = true;
+          // this.map.addControl(this.directions, "top-left");
         } else {
-          this.failSnackMsg="There was an issue booking your vehicle, please try again."
+          this.failSnackMsg =
+            "There was an issue booking your vehicle, please try again.";
           this.failSnack = true;
         }
       } catch (error) {
         console.error("NDEF error: " + error);
         this.onDirections = false;
-        this.failSnackMsg="Your device doesn't support this action"
+        this.failSnackMsg = "Your device doesn't support this action";
         this.failSnack = true;
       }
-    },
-    getCurrentPosition: function () {
-      navigator.geolocation.getCurrentPosition(async (location) => {
-        this.location = [location.coords.longitude, location.coords.latitude];
-        this.address = await this.getAddressFromLocation(this.location);
-        console.log(this.address);
-      });
     },
     async getAddressFromLocation(location) {
       let response = await this.$http.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${location[0]},${location[1]}.json?access_token=${constants.accessToken}&country=HR`
       );
-      console.log(response);
       return response.data.features[0].place_name;
     },
-    async endTrip(){
+    async endTrip() {
+      // this.map.removeControl(this.directions);
       navigator.geolocation.getCurrentPosition(async (location) => {
         this.location = [location.coords.longitude, location.coords.latitude];
       });
-      await this.$http.post(`api/trip/end?location=${this.location}`, this.currentItemStore.currentTrip)
-      let vehicle = this.currentItemStore.currentItem
-      vehicle.status = "Available"
-      await this.$http.patch(`api/vehicle/update`, vehicle)
-      this.onDirections=false
-      this.currentItemStore.clearCurrentTrip()
-      this.tripActive=false;
+      await this.$http.post(
+        `api/trip/end?location=${this.location}`,
+        this.currentItemStore.currentTrip
+      );
+      let vehicle = this.currentItemStore.currentItem;
+      vehicle.status = "Available";
+      await this.$http.patch(`api/vehicle/update`, vehicle);
+      this.onDirections = false;
+      this.currentItemStore.clearCurrentTrip();
+      this.tripActive = false;
       this.vehiclesList.map(async (vehicle) => {
         vehicle.address = await this.getAddressFromLocation(vehicle.location);
       });
-    }
+    },
   },
 };
 </script>

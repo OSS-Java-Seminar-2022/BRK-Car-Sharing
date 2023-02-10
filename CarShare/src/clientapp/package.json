@@ -11,14 +11,19 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-directions": "^4.1.1",
+    "@vuepic/vue-datepicker": "^3.6.8",
     "axios": "^1.1.3",
+    "datatables.net-vue3": "^2.0.0",
+    "date-fns": "^2.29.3",
     "docsify": "^4.13.0",
     "keycloak-js": "^20.0.3",
+    "lodash": "^4.17.21",
     "mapbox-gl": "^2.12.0",
     "pinia": "^2.0.23",
+    "tiny-emitter": "^2.1.0",
     "vue": "^3.2.41",
     "vue-router": "^4.1.5",
-    "vuetify": "^3.1.2"
+    "vuetify": "^3.1.3"
   },
   "devDependencies": {
     "@mdi/font": "^7.0.96",

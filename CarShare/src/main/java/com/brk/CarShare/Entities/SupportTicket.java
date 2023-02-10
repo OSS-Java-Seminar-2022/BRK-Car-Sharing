@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Document(collection = "supportTicket")
 @Data
@@ -21,6 +20,18 @@ public class SupportTicket {
     private String description;
     private Boolean isClosed;
     private String status;
-    private String ticketTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime ticketTime;
     private String userId;
+    private String tripId;
+
+    public SupportTicket(String userId, String tripId, String title, String description){
+        this.title=title;
+        this.description = description;
+        this.isClosed=false;
+        this.status="Active";
+        this.ticketTime = LocalDateTime.now();
+        this.userId=userId;
+        this.tripId=tripId;
+    }
 }
