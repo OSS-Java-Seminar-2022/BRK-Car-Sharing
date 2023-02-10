@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface SupportTicketRepository extends MongoRepository<SupportTicket, String> {
@@ -13,6 +14,7 @@ public interface SupportTicketRepository extends MongoRepository<SupportTicket, 
     List<SupportTicket> getSupportTicketsByTicketTimeBetween(String dateFrom, String dateTo);
     List<SupportTicket> getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(String query, String dateFrom, String dateTo);
 
-    @Query("{$or: [{'title': {$regex : ?0, $options: 'i'}}, {'description': {$regex : ?0, $options: 'i'}}, {'status': {$regex : ?0, $options: 'i'}}]}")
-    Page<SupportTicket> findByAllAttributesContainingIgnoreCase(String searchTerm, Pageable pageable);
+    Page<SupportTicket> findByTicketTimeBetweenAndTitleContainingIgnoreCaseOrDescriptionContainsIgnoreCase(LocalDateTime ticketTime, LocalDateTime ticketTime2, String title, String description, Pageable pageable);
+
+    Page<SupportTicket> findAllByTicketTimeBetween(LocalDateTime dateFromLocal, LocalDateTime dateToLocal, Pageable pageable);
 }

@@ -8,11 +8,23 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import { VDataTableServer } from "vuetify/labs/components";
 import AdministrationPage from "@/pages/AdministrationPage.vue";
 import Keycloak from "keycloak-js";
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const vuetify = createVuetify({
-  components,
+  components: {
+    VDataTableServer,
+    ...components,
+  },
+  defaults: {
+    VDataTableServer: {
+      fixedHeader: true,
+      noDataText: "Results not found",
+    },
+  },
   directives,
 });
 
@@ -36,37 +48,42 @@ keycloak
       window.location.reload();
     } else {
       console.log(keycloak);
-      configureHttpClientInterceptors(keycloak)
-      const app = createApp(AdministrationPage);
-      app.config.globalProperties.$http = httpClient;
-      app.config.globalProperties.$window = window;
-      app.config.globalProperties.$keycloak = keycloak;
-      app.use(createPinia());
-      app.use(vuetify);
+      if (!keycloak.realmAccess.roles.includes("ADMIN")) {
+        window.location.href = "/";
+      } else {
+        configureHttpClientInterceptors(keycloak);
+        const app = createApp(AdministrationPage);
+        app.config.globalProperties.$http = httpClient;
+        app.config.globalProperties.$window = window;
+        app.config.globalProperties.$keycloak = keycloak;
+        app.use(createPinia());
+        app.use(vuetify);
+        app.component('Datepicker', Datepicker)
 
-      app.mount("#administration");
+        app.mount("#administration");
 
-      //Token Refresh
-      setInterval(() => {
-        keycloak
-          .updateToken(70)
-          .then((refreshed) => {
-            if (refreshed) {
-              console.log(
-                "Token refreshed, valid for  " +
-                  Math.round(
-                    keycloak.tokenParsed.exp +
-                      keycloak.timeSkew -
-                      new Date().getTime() / 1000
-                  ) +
-                  " seconds"
-              );
-            }
-          })
-          .catch((error) => {
-            console.log("Failed to refresh token " + error);
-          });
-      }, 6000);
+        //Token Refresh
+        setInterval(() => {
+          keycloak
+            .updateToken(70)
+            .then((refreshed) => {
+              if (refreshed) {
+                console.log(
+                  "Token refreshed, valid for  " +
+                    Math.round(
+                      keycloak.tokenParsed.exp +
+                        keycloak.timeSkew -
+                        new Date().getTime() / 1000
+                    ) +
+                    " seconds"
+                );
+              }
+            })
+            .catch((error) => {
+              console.log("Failed to refresh token " + error);
+            });
+        }, 6000);
+      }
     }
   })
   .catch((error) => {
@@ -87,7 +104,7 @@ function configureHttpClientInterceptors(keycloak) {
     (error) => {
       let data = error.response.data;
       if (typeof data == "object" && data.Message) data = data.Message;
-      console.error("Error: " + error + "\nData: " + data)
+      console.error("Error: " + error + "\nData: " + data);
       return Promise.reject(error);
     }
   );

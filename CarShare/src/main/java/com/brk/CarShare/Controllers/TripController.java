@@ -7,9 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,9 +30,12 @@ public class TripController {
     }
 
     @GetMapping("")
-    public Page<Trip> getTrips(@RequestParam(value = "searchTerm", required = false) String searchTerm,
+    public Page<Trip> getTrips(@RequestParam(value = "dateFrom", required = false) String dateFrom, @RequestParam(value = "dateTo", required = false) String dateTo, @RequestParam(value="userId") String userId,
                                Pageable pageable) {
-        return tripService.findTripsBySearchTerm(searchTerm, pageable);
+        DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime dateFromLocal = LocalDateTime.parse(dateFrom, dtf);
+        LocalDateTime dateToLocal = LocalDateTime.parse(dateTo, dtf);
+        return tripService.findTripsByDate(dateFromLocal, dateToLocal,userId, pageable);
     }
     @GetMapping("/all")
     public ResponseEntity<Page<Trip>> getAllTripsPaginated(Pageable pageable) {

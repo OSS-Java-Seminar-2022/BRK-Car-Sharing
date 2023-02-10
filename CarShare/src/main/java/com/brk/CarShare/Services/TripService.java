@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,19 +42,19 @@ public class TripService {
 
     public Trip endTrip(Trip trip, List<Double> endLocation) {
         trip.setEndLocation(endLocation);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        trip.setEndTime(dtf.format(now));
+        trip.setEndTime(now);
         trip.setStatus("Ended");
         tripRepository.save(trip);
         return trip;
     }
 
-    public Page<Trip> findTripsBySearchTerm(String searchTerm, Pageable pageable) {
-        if (StringUtils.isEmpty(searchTerm)) {
+    public Page<Trip> findTripsByDate(LocalDateTime dateFrom, LocalDateTime dateTo, String userId, Pageable pageable) {
+        if (dateFrom == null || dateTo == null) {
             return tripRepository.findAll(pageable);
         } else {
-            return tripRepository.findBySearchTerm(searchTerm, pageable);
+            return tripRepository.findByUserIdAndStartTimeBetween(userId,dateFrom, dateTo, pageable);
         }
     }
 }

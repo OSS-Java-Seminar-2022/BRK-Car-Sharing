@@ -2,6 +2,7 @@ package com.brk.CarShare.Controllers;
 
 import com.brk.CarShare.Entities.SupportTicket;
 import com.brk.CarShare.Entities.Trip;
+import com.brk.CarShare.Entities.Vehicle;
 import com.brk.CarShare.Services.SupportTicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -27,8 +30,11 @@ public class SupportTicketController {
     }
 
     @GetMapping("")
-    public Page<SupportTicket> findSupportTicketsBySearchTerm(@RequestParam(required = false) String searchTerm, Pageable pageable) {
-        return supportTicketService.findSupportTicketsBySearchTerm(searchTerm, pageable);
+    public Page<SupportTicket> findSupportTicketsBySearchTerm(@RequestParam(required = false) String searchTerm,@RequestParam(required = false) String dateFrom,@RequestParam(required = false) String dateTo, Pageable pageable) {
+        DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime dateFromLocal = LocalDateTime.parse(dateFrom, dtf);
+        LocalDateTime dateToLocal = LocalDateTime.parse(dateTo, dtf);
+        return supportTicketService.findSupportTicketsBySearchTerm(searchTerm,dateFromLocal, dateToLocal, pageable);
     }
 
 
@@ -58,5 +64,11 @@ public class SupportTicketController {
     @GetMapping("/findByDescriptionDate")
     public ResponseEntity<List<SupportTicket>> getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(String query, String dateFrom, String dateTo){
         return ResponseEntity.ok(supportTicketService.getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(query, dateFrom, dateTo));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity createTicket(@RequestParam String userId, @RequestParam String tripId, @RequestParam String title, @RequestParam String description) {
+        SupportTicket ticket = supportTicketService.createTicket(userId, tripId, title, description);
+        return ResponseEntity.ok(ticket);
     }
 }

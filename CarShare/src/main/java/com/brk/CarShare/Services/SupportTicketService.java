@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -44,15 +45,16 @@ public class SupportTicketService {
     }
     public List<SupportTicket> getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(String query, String dateFrom, String dateTo){
         return supportTicketRepository.getSupportTicketsByDescriptionContainingAndTicketTimeIsBetween(query, dateFrom, dateTo);    }
-
-    public Page<SupportTicket> findSupportTicketsBySearchTerm(String searchTerm, Pageable pageable) {
+    public Page<SupportTicket> findSupportTicketsBySearchTerm(String searchTerm, LocalDateTime dateFromLocal, LocalDateTime dateToLocal, Pageable pageable) {
         if(StringUtils.isEmpty(searchTerm)){
-            return supportTicketRepository.findAll(pageable);
+            return supportTicketRepository.findAllByTicketTimeBetween(dateFromLocal, dateToLocal, pageable);
         }else {
-            return supportTicketRepository.findByAllAttributesContainingIgnoreCase(searchTerm, pageable);
+            return supportTicketRepository.findByTicketTimeBetweenAndTitleContainingIgnoreCaseOrDescriptionContainsIgnoreCase(dateFromLocal, dateToLocal,searchTerm,searchTerm, pageable);
         }
     }
-
-
-
+    public SupportTicket createTicket(String userId, String tripId, String title, String description) {
+        SupportTicket supportTicket = new SupportTicket(userId, tripId, title, description);
+        supportTicketRepository.insert(supportTicket);
+        return supportTicket;
+    }
 }

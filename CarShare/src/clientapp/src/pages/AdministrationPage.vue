@@ -1,6 +1,6 @@
 <template>
   <v-app :theme="theme">
-    <v-navigation-drawer :width="300" permanent >
+    <v-navigation-drawer :width="300" permanent>
       <v-list>
         <v-list-item
           :prepend-avatar="`https://api.dicebear.com/5.x/bottts-neutral/svg?seed=${user.name}`"
@@ -21,37 +21,48 @@
       </v-list>
 
       <v-divider></v-divider>
-      <v-list density="compact" nav @click:select="changeView">
+      <v-list
+        density="compact"
+        nav
+        @click:select="changeView"
+      >
         <v-list-item
-          prepend-icon="mdi-view-dashboard"
-          title="Dashboard"
-          value="DashboardView"
+          prepend-icon="mdi-car"
+          title="Vehicles"
+          value="VehiclesView"
+        ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-file-document-alert-outline"
+          title="Tickets"
+          value="TicketsView"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-main>
-      <component :is="selectedView" />
+      <component :is="selectedView" :theme="theme" />
     </v-main>
   </v-app>
 </template>
 
 <script>
 import { ref } from "vue";
-import DashboardView from "@/views/DashboardView.vue";
+import VehiclesView from "@/views/VehiclesView.vue";
+import TicketsView from "@/views/TicketsView.vue";
 export default {
   data() {
     return {
       theme: ref("dark"),
-      selectedView: "DashboardView",
-      user:{name:'',email:''},
+      selectedView: "VehiclesView",
+      user: { name: "", email: "" },
     };
   },
   async mounted() {
-    this.user = await this.$keycloak.loadUserInfo()
+    this.user = await this.$keycloak.loadUserInfo();
   },
   components: {
-    DashboardView,
+    VehiclesView,
+    TicketsView
   },
   methods: {
     onClick() {

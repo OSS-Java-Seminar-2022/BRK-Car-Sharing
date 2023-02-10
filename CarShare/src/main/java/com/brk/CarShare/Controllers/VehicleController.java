@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/vehicle")
@@ -18,13 +19,6 @@ public class VehicleController {
 
     @Autowired
     private final VehicleService vehicleService;
-
-    @GetMapping("")
-    public Page<Vehicle> getVehicles(@RequestParam(defaultValue = "") String searchTerm,
-                                                 @RequestParam(defaultValue = "100") int resultLimit,
-                                                 Pageable pageable) {
-        return vehicleService.findBySearchTerm(searchTerm, resultLimit, pageable);
-    }
 
     @GetMapping("")
     public ResponseEntity<Page<Vehicle>> findVehiclesBySearchTerm(
